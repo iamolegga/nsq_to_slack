@@ -1,0 +1,17 @@
+name: on-push-main
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-lint-test:
+    uses: ./.github/workflows/build-lint-test.yml
+    secrets: inherit
+  trigger-ci:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: twz123/rerun-pr-workflows-action@v0.2
+        with:
+          workflow: on-pr-main

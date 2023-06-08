@@ -1,0 +1,21 @@
+name: on-pr-main
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  is-rebased:
+    name: Is rebased
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3.5.0
+        with:
+          fetch-depth: 0
+      - uses: cyberark/enforce-rebase@v2
+        with:
+          default-branch: main
+  build-lint-test:
+    uses: ./.github/workflows/build-lint-test.yml
+    secrets: inherit

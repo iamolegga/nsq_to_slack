@@ -1,0 +1,33 @@
+name: build-lint-test
+
+on:
+  workflow_call:
+
+env:
+  NSQD_TCP_URL: 127.0.0.1:4150
+  NSQD_HTTP_URL: http://127.0.0.1:4151
+
+jobs:
+  build-lint-test:
+    runs-on: ubuntu-latest
+
+    services:
+      nsqd:
+        image: iamolegga/nsqd
+        ports:
+          - 4150:4150
+          - 4151:4151
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-go@v4
+        with:
+          go-version: stable
+
+      - run: go mod tidy
+      - run: go vet ./...
+      - run: go build .
+      - run: go test ./...
