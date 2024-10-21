@@ -4,7 +4,7 @@ go 1.19
 
 require (
 	github.com/nsqio/go-nsq v1.1.0
-	github.com/prometheus/client_golang v1.20.4
+	github.com/prometheus/client_golang v1.20.5
 	github.com/stretchr/testify v1.9.0
 	go.uber.org/zap v1.27.0
 )
